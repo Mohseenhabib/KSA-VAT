@@ -103,9 +103,10 @@ def create_qr_code(doc, method=None):
 
 		# base64 conversion for QR Code
 		base64_string = b64encode(bytes.fromhex(tlv_buff)).decode()
+		truncated_base64_string = base64_string[:24]
 
 		qr_image = io.BytesIO()
-		url = qr_create(base64_string, error="L")
+		url = qr_create(truncated_base64_string, error="L")
 		url.png(qr_image, scale=2, quiet_zone=1)
 
 		name = frappe.generate_hash(doc.name, 5)
